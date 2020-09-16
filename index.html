@@ -141,7 +141,7 @@
     /* 防止有些人下载后直接打开，然后问怎么扫不出来…… */ 
      if(!(/^http(s*):\/\//.test(location.href)) || /^http(s*):\/\/localhost/.test(location.href)) {
        alert('本收款码需要网站空间进行中转，请先部署到网站下再访问');
-        window.location.href='https://github.com/91en/qrcode';
+        window.location.href='https://91en.github.io/qrcode/';
     } 
     
     if(navigator.userAgent.match(/Alipay/i)) {
@@ -149,15 +149,18 @@
         window.location.href = setting.aliUrl; 
     } else if(navigator.userAgent.match(/MicroMessenger\//i)) {
         /* 微信 */ 
-        document.getElementById("wechat-url").src = setting.qrcodeApi + urlEncode(setting.wechatUrl);
-        document.getElementById("code-wechat").style.display = "block";
+        /* document.getElementById("wechat-url").src = setting.qrcodeApi + urlEncode(setting.wechatUrl); */
+        document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
+		document.getElementById("code-wechat").style.display = "block";
     } else if(navigator.userAgent.match(/QQ\//i)) {
         /* QQ */ 
-        document.getElementById("qq-url").src = setting.qrcodeApi + urlEncode(setting.qqUrl);
+       /* document.getElementById("qq-url").src = setting.qrcodeApi + urlEncode(setting.qqUrl); */
+	    document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
         document.getElementById("code-qq").style.display = "block";
     } else {
         /* 其它，显示“万能码” */ 
-        document.getElementById("page-url").src = setting.qrcodeApi + urlEncode(window.location.href);
+       /* document.getElementById("page-url").src = setting.qrcodeApi + urlEncode(window.location.href); */
+	    document.getElementById("page-url").src = QRCode.generatePNG(window.location.href, { margin: 0 });
         document.getElementById("code-all").style.display = "block";
     }
     
@@ -166,9 +169,9 @@
      * 输入参数：待编码的字符串
      * 输出参数：编码好的
      ****************************************/
-    function urlEncode(String) {
+   /* function urlEncode(String) {
         return encodeURIComponent(String).replace(/'/g,"%27").replace(/"/g,"%22");	
-    }
+    } */
     </script>
 
 </body>
